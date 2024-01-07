@@ -1,0 +1,61 @@
+body {
+  background-image: url('/tile.jpg');
+}
+
+main {
+  background-image: url(/formbg.jpg);
+  padding: 20px;
+  width: 100%;
+}
+
+.mainInnerDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.8;
+}
+
+.tasksContainer {
+  display: flex;
+  flex-wrap: wrap;
+  transition: all ease-out 1s;
+}
+
+.container {
+  transition: all ease-out 1s;
+  position: relative;
+  min-height: 100vh;
+}
+
+#floatingTextarea {
+  height: 150px;
+}
+
+.deleteBtn {
+  position: absolute;
+  right: 28px;
+  top: 25px;
+  opacity: 0;
+}
+
+.taskDiv {
+  position: relative;
+  background-image: url('/notebg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 200px;
+  height: 250px;
+  transition: all ease-out 0.3s;
+}
+
+.taskDiv:hover .deleteBtn{
+  opacity: 1;
+  transition: all ease-out 0.3s;
+}
+
+.taskPar {
+  padding: 10px;
+  padding-top: 60px;
+  overflow-wrap: break-word;
+  width: 176px;
+}
