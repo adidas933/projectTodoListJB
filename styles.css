@@ -4,58 +4,110 @@ body {
 
 main {
   background-image: url(/formbg.jpg);
-  padding: 20px;
-  width: 100%;
+  width: 900px;
+  margin: auto;
+  background-position: center;
+  padding: 0 20px;
 }
 
 .mainInnerDiv {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  line-height: 1.8;
+  width: auto;
+  align-items: center;
 }
+.taskInput, .dateInput, .hourInput, .input-group-text {
+  margin-top: 13px;
+  display: flex;
+  text-align: center;
+}
+
+.saveTaskBtn, .resetAllBtn {
+  margin: 14px 0;
+  bottom: 2px;
+  }
 
 .tasksContainer {
   display: flex;
   flex-wrap: wrap;
-  transition: all ease-out 1s;
 }
 
 .container {
-  transition: all ease-out 1s;
   position: relative;
-  min-height: 100vh;
 }
 
 #floatingTextarea {
-  height: 150px;
+  height: 55px;
 }
 
 .deleteBtn {
-  position: absolute;
-  right: 28px;
-  top: 25px;
+  position: relative;
+  left: 149px;
+  top: 20px;
   opacity: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+}
+
+.deleteBtn:hover, .markFinishedTask:hover {
+  background-color: rgba(188, 185, 186, 0.3);
+  border-radius: 50%;
 }
 
 .taskDiv {
   position: relative;
   background-image: url('/notebg.png');
   background-size: cover;
-  background-repeat: no-repeat;
   width: 200px;
   height: 250px;
-  transition: all ease-out 0.3s;
 }
 
-.taskDiv:hover .deleteBtn{
+.taskDiv:hover .deleteBtn,.taskDiv:hover .markFinishedTask{
   opacity: 1;
   transition: all ease-out 0.3s;
 }
 
 .taskPar {
-  padding: 10px;
-  padding-top: 60px;
+  padding-left: 8px;
+  padding-bottom: 4px;
+  margin-bottom: 25px;
+  margin-top: 22px;
   overflow-wrap: break-word;
-  width: 176px;
+  width: 174px;
+  background-color: transparent;
+  border: none;
+  height: 143px;
+  resize: none;
+}
+
+.taskPar:focus {
+  outline: none;
+}
+
+.bottomLineDiv {
+  padding-left: 10px;
+  position: relative;
+  color: red;
+}
+
+.bottomLineDiv p {
+  margin-top: -30px;
+}
+
+.bottomLineDiv:last-child {
+  margin-top: 30px;
+}
+
+.markFinishedTask {
+  position: relative;
+  left: 92px;
+  top: 18px;
+  opacity: 0;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+}
+
+.fa-text-slash:before {
+  font-size: 15px;
 }

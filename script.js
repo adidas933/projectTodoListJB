@@ -1,15 +1,13 @@
-// TODO: Make date and hour at the bottom of task and stick there even when having a scroll bar.
+
+// TODO: when refreshing the tasks with line through will stay with the line through style. 
+// TODO: make an animation of creating a task. fade in animation.
 // TODO: make an edit button that can edit a task.
 // TODO: when user forgets an input make an alert that the specific input is missing.
 // TODO: when clicking the delete button on the task make the tasks list get organize
-// TODO: make a transition of 0.3s of creating a task. fade in
-// TODO: add a description on the input of time to finish task and also on task itself so it will be more clear what is the time for.
-// TODO: when refreshing the unfinished tasks will still be there and the finished ones will be with line thru.
 // TODO: design the heading of page with shadows and more
 // TODO: use a special font for text and heading
-// TODO: the form of inputs and buttons should be centered
-// TODO: add a scroller to note task if longer then note
 // TODO: make project in github and make a branch for changes and saves
+// TODO: make a button to create a test note to appear for testing.
 
 // Variables
 const taskInput = document.querySelector('.taskInput');
@@ -59,7 +57,7 @@ function isEmpty() {
     addToStorage();
   }
 }
-
+// local storage:
 function addToStorage() {
   localStorage.setItem('outputsAsArray', JSON.stringify(outputsAsArray));
 }
@@ -82,32 +80,18 @@ function resetInputs() {
   hourInput.value = '';
 }
 
-function deleteTask(tasksObj, taskVar) { 
-  tasksContainer.removeChild(taskVar);
-  const index = outputsAsArray.findIndex(obj => obj === tasksObj);
-  if (index !== -1) {
-    outputsAsArray.splice(index, 1);
-    addToStorage();
-  }
-}
-
+// create task elements:
 function taskDiv() { // creates a div for every task note
   const taskDivVar = tasksContainer.appendChild(document.createElement('div'));
   taskDivVar.className = 'taskDiv';
   return taskDivVar;
 }
 
-function addDeleteButton(taskVar) { // creates a delete button for every task note
-  const addDeleteButton = taskVar.appendChild(document.createElement('button'));
-  addDeleteButton.innerHTML = '<i class="bi bi-x"></i>';
-  addDeleteButton.className = 'deleteBtn';
-  return addDeleteButton;
-}
-
 function elementCreating(taskVar, input) { // creates task note text.
-  const taskPar = document.createElement('p');
+  const taskPar = document.createElement('textarea');
   taskPar.className = 'taskPar'
   taskPar.innerText = input;
+  taskPar.setAttribute('readOnly', 'readOnly');
   taskVar.appendChild(taskPar);
 }
 
@@ -118,15 +102,68 @@ function createBottomLine(taskVar, input) {
   bottomLineDiv.appendChild(bottomLineText);
   bottomLineText.innerText = input;
   bottomLineDiv.className = 'bottomLineDiv';
+  bottomLineText.className = 'bottomLineText';
 }
 
+// delete button:
+function addDeleteButton(taskVar) { // creates a delete button for every task note
+  const addDeleteButton = taskVar.appendChild(document.createElement('button'));
+  addDeleteButton.className = 'deleteBtn';
+  addDeleteButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+  return addDeleteButton;
+}
+
+function deleteTask(tasksObj, taskVar) { 
+  tasksContainer.removeChild(taskVar);
+  const index = outputsAsArray.findIndex(obj => obj === tasksObj);
+  if (index !== -1) {
+    outputsAsArray.splice(index, 1);
+    addToStorage();
+  }
+}
+// mark finished task
+function addFinishedTaskBtn(taskVar) {
+  const addFinishedTaskBtnVar = taskVar.appendChild(document.createElement('button'));
+  addFinishedTaskBtnVar.className = 'markFinishedTask';
+  addFinishedTaskBtnVar.innerHTML = '<i class="fa-solid fa-text-slash"></i>';
+  return addFinishedTaskBtnVar;
+}
+
+function isFinishedTaskMarked(taskVar) {
+  return taskVar.children[2].style.textDecoration === 'line-through';
+}
+
+function removeLineThrough(taskVar) {
+  const taskPar = taskVar.children[2];
+  taskPar.style.textDecoration = 'none';
+}
+
+function markFinishedTask(tasksObj, taskVar) {
+  const taskPar = taskVar.children[2];
+  taskPar.style.textDecoration = 'line-through';
+  
+  const index = outputsAsArray.findIndex(obj => obj === tasksObj);
+  if (index !== -1) {
+    // outputsAsArray[index].style.textDecoration = 'line-through';
+    // outputsAsArray.splice(index, 1);
+    addToStorage();
+  }
+}
+// main create elements function
 function createElements(tasksObj) { // creates all elements inside the tasks, object, div, delete button when clicked.
   const taskVar = taskDiv();
   addDeleteButton(taskVar).addEventListener('click', function() {
-  deleteTask(tasksObj, taskVar);
-});
+    deleteTask(tasksObj, taskVar);
+  });
 
-  createObj(tasksObj);
+addFinishedTaskBtn(taskVar).addEventListener('click', function() {
+  if (isFinishedTaskMarked(taskVar)) {
+    removeLineThrough(taskVar);
+  } else {
+       markFinishedTask(tasksObj, taskVar);
+    }
+});
+    createObj(tasksObj);
     elementCreating(taskVar, tasksObj.taskContent);
     createBottomLine(taskVar, tasksObj.date);
     createBottomLine(taskVar, tasksObj.hour);
