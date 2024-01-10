@@ -60,6 +60,16 @@ main {
   background-size: cover;
   width: 200px;
   height: 250px;
+  animation: animate1 1s forwards ease-in;
+}
+
+@keyframes animate1 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .taskDiv:hover .deleteBtn,.taskDiv:hover .markFinishedTask{

@@ -1,10 +1,10 @@
 
 // TODO: when refreshing the tasks with line through will stay with the line through style. 
-// TODO: make an animation of creating a task. fade in animation.
+// TODO: why when i make the functions as variables i have bugs?
 // TODO: make an edit button that can edit a task.
 // TODO: when user forgets an input make an alert that the specific input is missing.
 // TODO: when clicking the delete button on the task make the tasks list get organize
-// TODO: design the heading of page with shadows and more
+// TODO: design the heading of page with shadows and more     
 // TODO: use a special font for text and heading
 // TODO: make project in github and make a branch for changes and saves
 // TODO: make a button to create a test note to appear for testing.
@@ -138,17 +138,21 @@ function removeLineThrough(taskVar) {
   taskPar.style.textDecoration = 'none';
 }
 
+function saveStyleToStorage(element) {
+  element.style.textDecoration = 'line-through';
+}
+
 function markFinishedTask(tasksObj, taskVar) {
   const taskPar = taskVar.children[2];
   taskPar.style.textDecoration = 'line-through';
-  
-  const index = outputsAsArray.findIndex(obj => obj === tasksObj);
-  if (index !== -1) {
+  saveStyleToStorage(taskPar);
+  // const index = outputsAsArray.findIndex(obj => obj === tasksObj);
+  // if (index !== -1) {
     // outputsAsArray[index].style.textDecoration = 'line-through';
     // outputsAsArray.splice(index, 1);
     addToStorage();
   }
-}
+// }
 // main create elements function
 function createElements(tasksObj) { // creates all elements inside the tasks, object, div, delete button when clicked.
   const taskVar = taskDiv();
